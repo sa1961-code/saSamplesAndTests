@@ -60,13 +60,25 @@ namespace Net48_Service
             }
         }
 
+        /// <summary>
+        /// The Servicename starts with ServiceBaseName
+        /// </summary>
         public static string ServiceBaseName => "Net48_Service";
 
+        /// <summary>
+        /// Spezify the instance
+        /// </summary>
         public static string InstanceName => m_InstanceName;
         static string m_InstanceName = "default";
 
+        /// <summary>
+        /// full service name
+        /// </summary>
         public static string ServiceName => ServiceBaseName + "(" + InstanceName + ")";
 
+        /// <summary>
+        /// C:\ProgramData\Net48_Service\InstanceName
+        /// </summary>
         public static string DataFolderName
         {
             get
@@ -86,6 +98,9 @@ namespace Net48_Service
         }
         static string m_DataFolderName = null;
 
+        /// <summary>
+        /// C:\ProgramData\Net48_Service\InstanceName\Net48_Service.log
+        /// </summary>
         public static string LogFileName
         {
             get
