@@ -3,3 +3,25 @@
 *.log
 *.bak
 *.swp
+
+# visual studio stuff
+*.suo
+*.scc
+*.sdf
+*.cache
+*.pdb
+*.pch
+*.ipch
+*.obj
+*.exp
+*.vshost.exe
+*.vshost.manifest
+ipch/
+
+Net48_HttpListener/bin
+Net48_HttpListener/Sample01_Microsoft/bin
+Net48_HttpListener/Sample01_Microsoft/obj
+Net48_HttpListener/Sample02_AsyncListener/bin
+Net48_HttpListener/Sample02_AsyncListener/obj
+Net48_HttpListener/Sample03_MultiThreaded/bin
+Net48_HttpListener/Sample03_MultiThreaded/obj
