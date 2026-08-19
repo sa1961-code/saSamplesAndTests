@@ -31,7 +31,7 @@ extended:
 <   less
 ```
 
-### functions
+### Functions
 ```
 REB-compliant:
 sin    sine
