@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.37530.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net48_Parser", "Net48_Parser\Net48_Parser.csproj", "{8B3930F3-1C1B-4259-A9D9-E4E2849DA3D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net48_Parser_Demo", "Net48_Parser_Demo\Net48_Parser_Demo.csproj", "{A2AAB396-E056-47E0-A111-CBCA1BCB494D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B65FB630-12DF-4706-86C6-F1B73898B352}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B3930F3-1C1B-4259-A9D9-E4E2849DA3D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B3930F3-1C1B-4259-A9D9-E4E2849DA3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B3930F3-1C1B-4259-A9D9-E4E2849DA3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B3930F3-1C1B-4259-A9D9-E4E2849DA3D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2AAB396-E056-47E0-A111-CBCA1BCB494D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2AAB396-E056-47E0-A111-CBCA1BCB494D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2AAB396-E056-47E0-A111-CBCA1BCB494D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2AAB396-E056-47E0-A111-CBCA1BCB494D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {050C4A98-7E4D-4E37-9039-E75F8E7A146E}
+	EndGlobalSection
+EndGlobal

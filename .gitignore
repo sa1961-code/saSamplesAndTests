@@ -26,6 +26,12 @@ Net48_HttpListener/Sample02_AsyncListener/obj
 Net48_HttpListener/Sample03_MultiThreaded/bin
 Net48_HttpListener/Sample03_MultiThreaded/obj
 
+Net48_Parser/bin
+Net48_Parser/Net48_Parser/bin
+Net48_Parser/Net48_Parser/obj
+Net48_Parser/Net48_Parser_Demo/bin
+Net48_Parser/Net48_Parser_Demo/obj
+
 Net48_Service/bin
 Net48_Service/Net48_Service/bin
 Net48_Service/Net48_Service/obj
