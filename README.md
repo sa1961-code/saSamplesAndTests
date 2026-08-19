@@ -7,5 +7,5 @@ Demonstrates the usage of the .NET HttpListener class in various scenarios.
 ## Net48_Parser
 Implements an interpreter for complex mathematical expressions.
 
-## Net48_Services
+## Net48_Service
 Demonstrates an empty windows service with self installer.

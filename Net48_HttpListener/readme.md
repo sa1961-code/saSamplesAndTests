@@ -19,7 +19,7 @@ netsh http delete urlacl http://*:8001/
 - Run this example to listen once on localhost, port 8001.
 - Open a Browser and visit http://localhost:8001.
 
-### Sample02_Microsoft
+### Sample02_AsyncListener
 - Run this example to listen asynchronously in a loop on localhost, port 8001.
 - Open a Browser and visit http://localhost:8001.
 
