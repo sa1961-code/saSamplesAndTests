@@ -11,16 +11,32 @@
 */
 var NumericParser = function()
 {
-	// properties
+	// ----------------------------- properties
+	
+	// the result of the calculation
 	this.Result = 0.00;
+	
+	// Error message
 	this.ErrorMessage = "";
+	
+	// Reference circle of the trigonometric functions
+	// 2π would be the natural standard.
+	// 360 degrees for classical mathematics.
+	// 400 grad use for German architects.
 	this.ArcBase = 400.00;
+	
+	// EnableLogicalOperators allows the use of logical operators.
+	// These always return either a 0 or a 1.
+	// The operands are evaluated as false if their value is 0, and as true otherwise.
 	this.EnableLogicalOperators = false;
 
-	// members
+	// ----------------------------- members
+	// Do not use these outside this class.
     this.m_Formula = "";
     this.m_Cursor = 0;
     this.m_Lenght = 0;
+
+	// ----------------------------- public functions
 
 	this.getResult = function()
 	{
@@ -33,7 +49,7 @@ var NumericParser = function()
 		if (!precis) precis = 3;
 		var r = Math.round(value * Math.pow(10, precis)).toString();
 		r = r[0] == '-' ? "-" + r.substring(1).padStart(precis + 1, "0") : r.padStart(precis + 1, "0");
-		var k = r.length - precis;  // Position des Kommas
+		var k = r.length - precis;  // Position of the delimiter
 		return r.substring(0, k) + "," + r.substring(k);
 	}
 
@@ -74,7 +90,7 @@ var NumericParser = function()
 		return result;
 	};
 
-	/// speichert den Wert der Formula in den Properties Result und ErrorMessage
+	/// stores the value of the formula in the Result and ErrorMessage properties
 	this.execute = function(Formula)
 	{
 		this.Result = 0;
@@ -86,12 +102,13 @@ var NumericParser = function()
 		//this.log("execute");
 		try
 		{
-			// linker Term
+			// determining the first left-hand term
 			var sign = this.readSign();
 			var term = this.readTerm();
 			if (term == "")	return false;
-
 			var leftValue = this.resolve(term, sign);
+			
+			// combine this value with remaining
 			var opCode = this.readOpCode();
 			this.Result = opCode == "" ? leftValue : this.combineWithRemaining(leftValue, opCode);
 			return this.ErrorMessage == "";
@@ -106,7 +123,7 @@ var NumericParser = function()
 
 	// -------------- resolve
 	
-	/// gibt den Wert des Terms zurueck
+	/// returns the value of the term
 	this.resolve = function(term, sign)
 	{
 		//this.log("resolve(" + term + "," + sign.toString() + ")");
@@ -129,7 +146,7 @@ var NumericParser = function()
 		return sign ? -result : result;
 	};
 		
-	/// Einen Ausdruck aufloesen
+	/// Resolve an expression
 	this.resolveExpression = function(expr)
 	{
 		//this.log("resolveExpression(" + expr + ")");
@@ -141,7 +158,7 @@ var NumericParser = function()
 		return 0.00;
 	};
 
-    /// Einen Term aufloesen, der mit einen Namen beginnt
+    /// Resolve a term that begins with a name
 	this.resolveNamedElement = function(term)
 	{
 		//this.log("resolveNamedElement(" + term + ")");
@@ -155,7 +172,7 @@ var NumericParser = function()
 		return this.resolveAlias(term);
 	};
 	
-    /// Wert einer Funktion ermitteln
+    /// Determine the value of a function
 	this.resolveFunction = function(name, dArg)
 	{
 		try
@@ -187,7 +204,7 @@ var NumericParser = function()
 		return 0.00;
 	};
 
-	/// Eine benannte Konstante ermitteln
+	/// Determine a named constant
 	this.resolveAlias = function(name)
 	{
 		switch (name)
@@ -198,8 +215,8 @@ var NumericParser = function()
 		return 0;
 	}
 
-	/// Eine Konstante aus Ziffern und Trennzeichen auswerten
-    /// Robustere Version von Decimal.Parse 
+	/// Evaluate a constant consisting of digits and separators.
+    /// Here is a more robust version of parseFloat. 
 	this.resolveConst = function(bsParam)
 	{
 		if (bsParam == "") return 0.0;
@@ -269,9 +286,9 @@ var NumericParser = function()
 		}
 	};
 
-	// ----------------- Operatoren ausfuehren
+	// ----------------- Execute operators
 
-    /// Linken und rechten Wert mit der angegebene Operation verknuepfen
+    /// Combine the left and right values using the specified operation.
 	this.combine = function(leftValue, opCode, rightValue)
 	{
 		//this.log("combine " + leftValue.toString() + opCode + rightValue.toString());
@@ -279,7 +296,7 @@ var NumericParser = function()
 		{
 			switch (opCode)
 			{
-                // Standard
+                // default
 				case "+":
 					return leftValue + rightValue;
 				case "-":
@@ -292,7 +309,7 @@ var NumericParser = function()
 				case "^":
 					return Math.pow(leftValue, rightValue);
 
-				// Logisch
+				// boolean
 				case "|":
 					return (leftValue != 0) || (rightValue != 0) ? 1 : 0;
 				case "&":
@@ -319,7 +336,7 @@ var NumericParser = function()
 		return 0.00;
 	};
 
-    /// Linken Wert mit dem noch nicht analysierten Rest verknuepfen
+    /// Link the left-hand value with the as-yet unanalyzed remainder.
 	this.combineWithRemaining = function(leftValue, opCode)
 	{
 		//this.log("combineWithRemaining-1 " + leftValue.toString() + opCode);
@@ -348,18 +365,18 @@ var NumericParser = function()
 		return this.combineWithRemaining(leftValue, nextOpCode);
 	};
 	
-	/// Vergleicht das Gewicht der beiden Op-Codes
+	/// Compare the weight of the two operators.
 	this.compareOpCode = function(o1, o2)
 	{
 		return this.getWeightOfOpCode(o1) - this.getWeightOfOpCode(o2);
 	};
 
-    /// Ermittelt das Gewicht eines Op-Codes fuer die Vorrangregel
+    /// Determines the weight of an operator for the precedence rules.
 	this.getWeightOfOpCode = function(o1)
 	{
 		switch (o1[0])
 		{
-			// Mathematische Operatoren
+			// numeric
 			case '+':
 			case '-':
 				return 10;
@@ -369,12 +386,12 @@ var NumericParser = function()
 			case '^':
 				return 12;
 
-			// logische Operatoren
+			// boolean
 			case '&':
 			case '|':
 				return 1;
 
-			// Vergleichsoperatoren
+			// compare
 			default:
 				return 2;
 		}
@@ -382,7 +399,7 @@ var NumericParser = function()
 
 	// ----------------- read source
 
-	/// ermittelt den naechsten Term
+	/// determines the next term
 	this.readTerm = function()
 	{
 		//this.log("readTerm");
@@ -414,7 +431,7 @@ var NumericParser = function()
 		return "";
 	};
 
-	/// Liest einen in Klammern eingeschlossenen Term
+	/// Reads a term enclosed in parentheses
 	this.readSubTerm = function()
 	{
 		//this.log("readSubTerm");
@@ -441,7 +458,7 @@ var NumericParser = function()
 		return result;
 	};
 
-	/// Liste eine Konstante
+	/// Reads a constant
 	this.readConst = function()
 	{
 		//this.log("readConst");
@@ -455,7 +472,7 @@ var NumericParser = function()
 		return result;
 	};
 
-	/// Liest den Namen einer Konstanten oder Funktion
+	/// Reads the name of a constant or function.
 	this.readName = function()
 	{
 		//this.log("readName");
@@ -467,7 +484,7 @@ var NumericParser = function()
 		return result;
 	};
 
-    /// ermittelt den naechsten Operanten
+    /// determines the next operand
 	this.readOpCode = function()
 	{
 		//this.log("readOpCode");
@@ -510,7 +527,7 @@ var NumericParser = function()
 		return "";
 	}
 
-    /// Ermittelt, ob der naechste Term ein negatives Vorzeichen hat
+    /// Determines whether the next term has a negative sign.
     this.readSign = function()
 	{
 		//this.log("readSign");
@@ -524,13 +541,13 @@ var NumericParser = function()
 		return bSign;
 	};
 
-	/// Liest das naechste Zeichen und setzt den Cursor weiter
+	/// Reads the next character and moves the cursor.
 	this.getChar = function()
 	{
 		return this.m_Cursor < this.m_Lenght ? this.m_Formula[this.m_Cursor++].toString() : '';
 	};
 
-	/// Ermittelt das als naechstes zu lesende Zeichen ohne den Cursor zu veraendern
+	/// Determines the next character to be read without moving the cursor.
 	this.peekChar = function()
 	{
 		return this.m_Cursor < this.m_Lenght ? this.m_Formula[this.m_Cursor].toString() : '';
@@ -568,7 +585,7 @@ var NumericParser = function()
 		return this.ArcFunctionArgument(Math.atan(dArg));
 	};
 
-	// Extra
+	// extra
 	this.fn_fabs = function(dArg)
 	{
 		return Math.abs(dArg);
