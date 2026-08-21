@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="numericParser.js"></script>
+	<style>
+	.container 
+	{
+	  display: flex;
+	  background-color: blue;
+	}
+	.container pre
+	{
+	  background-color: white;
+	  border: 1px solid black;
+	  margin-left: 16px;
+	  padding: 4px;
+	  height: 300px;
+	}
+	</style>
+</head>
+<body>
+
+<h1>Numeric Parser</h1>
+<p>
+	<ul>
+	<li>left: source for parsing</li>
+	<li>middle: expression to evaluate</li>
+	<li>right: results</li>
+	</ul>
+</p>
+<div class="container">
+	<pre id="input" contenteditable="true" style="width: 300px;" oninput="calculate();"></pre>
+	<pre id="formula" style="width: 200px;">Hallo</pre>
+	<pre id="result" style="width: 100px; text-align: right;">Ergebnis</pre>
+</div>
+<script>
+
+var dimensionChain =
+	"# Comment\r\n" +
+	"* Comment\r\n" +
+	"\" Comment\r\n" +
+	"Comment: 3*-4,25 =\r\n" +
+	"Comment: 1+\r\n" +
+	"Comment: -4 \"Comment\" * 2 =\r\n" +
+	"pi=\r\n" +
+	"sin(100)=\r\n" +
+	"sqrt(2*pi + e**2)=\r\n" +
+	"(1+-4) * 2=\r\n" +
+	"17=\r\n";
+
+var Parser = new NumericParser();
+
+window.onload = function()
+{
+	var input = document.getElementById("input");
+	input.innerText = dimensionChain;
+	calculate();
+};
+
+function calculate()
+{
+	dimensionChain = document.getElementById("input").innerText;
+	var lines = dimensionChain.split('\n');
+	var formula = "";
+	var formulaLines = [];
+	var total = 0.00;
+	
+	for (var i = 0; i < lines.length; i++)
+	{
+		var line = Parser.getValueRelevantShare(lines[i]);
+		if ((line != "") && (line[line.length - 1] == '='))
+		{
+			formula += line.substring(0, line.length - 1);
+			
+			if (Parser.execute(formula))		
+			{
+				total += Parser.getResult();
+				lines[i] = Parser.formatValue();
+			}
+			else
+				lines[i] = Parser.ErrorMessage;
+
+			formulaLines.push(formula);
+			formula = "";
+		}
+		else
+		{
+			formula += line;
+			lines[i] = "";
+			formulaLines.push("");
+		}
+	}
+
+	lines.push(Parser.formatValue(total));
+	
+	document.getElementById("formula").innerText = formulaLines.join('\n');
+	document.getElementById("result").innerText = lines.join('\n');
+}
+
+</script>
+</body>
+</html>
