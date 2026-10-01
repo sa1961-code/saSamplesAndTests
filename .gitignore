@@ -35,3 +35,7 @@ Net48_Parser/DotNet-Version/Net48_Parser_Demo/obj
 Net48_Service/bin
 Net48_Service/Net48_Service/bin
 Net48_Service/Net48_Service/obj
+
+Net48_WindowsAccounts/bin
+Net48_WindowsAccounts/Net48_WindowsAccounts/bin
+Net48_WindowsAccounts/Net48_WindowsAccounts/obj
