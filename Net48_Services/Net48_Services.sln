@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.37627.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Net48_Services", "Net48_Services\Net48_Services.csproj", "{278D64DE-5657-4525-A2C5-4815F002C1AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9BC0DE79-77B1-4FEA-98AB-EDF07722F765}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{278D64DE-5657-4525-A2C5-4815F002C1AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{278D64DE-5657-4525-A2C5-4815F002C1AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{278D64DE-5657-4525-A2C5-4815F002C1AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{278D64DE-5657-4525-A2C5-4815F002C1AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54183BF7-5DC8-43F9-88D1-74BC694AEF1C}
+	EndGlobalSection
+EndGlobal
